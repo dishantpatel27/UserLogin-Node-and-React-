@@ -31,7 +31,7 @@ class App extends Component {
         headers: new Headers({
           'Content-Type': 'application/json'
         })
-      }).then(res => res.json())
+      }).then(res => console.log(res.json()))
       .catch(error => console.error('Error:', error))
       .then(response => console.log('Success:', response));
     }

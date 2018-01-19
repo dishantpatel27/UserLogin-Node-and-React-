@@ -3,11 +3,15 @@ const express       = require("express");
 const bodyParser    = require("body-parser");
 const app           = express();
 const dataBase      = require('./loginInfo.json');
+var jwt             = require('jsonwebtoken');
+var morgan          = require('morgan');
+
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('dev'));
  
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.post('/login',(req,res)=>{
     var givenUserName = req.body.username;
@@ -16,15 +20,22 @@ app.post('/login',(req,res)=>{
       if((dataBase[i].username == givenUserName) && (dataBase[i].password == givenPassword)){
         console.log("in if redirect");
         //req.session.user_id = users[i].id;
-        res.redirect('http://localhost:5000/loginSuccess');
+        var token = jwt.sign({user: givenUserName,id: dataBase[i].id}, 'secret', {
+            expiresIn: 60 * 60 
+          });
+          res.json({
+            success: true,
+            message: 'Here is your Token!',
+            token: token
+          });
         return;
         }else if (dataBase[i].username == givenUserName ){
-          res.status(403).send("Wrong password");
+            res.json({ success: false, message: 'Authentication failed. Wrong password.' });
           return;
         }
     }
     console.log("unsuccessful");
-    res.status(403).send("Wrong username and password");
+    res.json({ success: false, message: 'Authentication failed. User not found.' });
     return;
 })
 app.get('/loginSuccess', (req, res) => {

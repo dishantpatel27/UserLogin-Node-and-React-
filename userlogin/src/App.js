@@ -22,6 +22,7 @@ class App extends Component {
     }
   }
   handleSubmit = (event) => {
+    event.preventDefault();
     if((this.state.name === "" || null) || (this.state.password === "" ||null)){
       alert("Please Input all the fields");
     }else{
@@ -31,9 +32,17 @@ class App extends Component {
         headers: new Headers({
           'Content-Type': 'application/json'
         })
-      }).then(res => console.log(res.json()))
+      })
       .catch(error => console.error('Error:', error))
-      .then(response => console.log('Success:', response));
+      .then(response => response.json())  
+      .then(response => {
+        if(response.token){
+          alert("Login Successful");
+          localStorage.setItem('jwtToken', response.token);
+        }else{
+          alert("Please Try Again!");
+        }
+      });
     }
   }
 

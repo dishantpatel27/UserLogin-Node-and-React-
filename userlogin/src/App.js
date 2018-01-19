@@ -42,6 +42,7 @@ class App extends Component {
         }else{
           alert("Please Try Again!");
         }
+        this.setState({name: "",password: ""});
       });
     }
   }
@@ -57,26 +58,26 @@ class App extends Component {
           <h2>Welcome</h2>
         </div>
         <form onSubmit={this.handleSubmit} className="form-horizontal" style={{marginTop: 120,marginLeft: 350}}>
-        <div className="form-group">
-        <br></br>
-        <label className="control-label col-sm-2" htmlFor="username">Name:</label>
-        <div className="col-sm-10">
-          <input style={{width: '50%'}} className="form-control" id="username" placeholder="Enter Name" name="username" type="text" value={this.state.name} onChange={this.handleChangeName} />
-         </div>
-         </div>
-         <br></br>
-         <div className="form-group">
-        <label className="control-label col-sm-2" htmlFor="pwd" >Password:</label>
-        <div className="col-sm-10">
-          <input style={{width: '50%'}} type="password" className="form-control" id="pwd" placeholder="Enter password" name="pwd" value={this.state.password} onChange={this.handleChangePassword} />
-        </div>
-        </div>
-        <div className="form-group">        
-      <div className="col-sm-offset-2 col-sm-10">
-        <button type="submit" className="btn btn-default">Submit</button>
-      </div>
-    </div>
-      </form>
+          <div className="form-group">
+            <br></br>
+            <label className="control-label col-sm-2" htmlFor="username">Username:</label>
+            <div className="col-sm-10">
+              <input style={{width: '50%'}} className="form-control" id="username" placeholder="Enter Name" name="username" type="text" value={this.state.name} onChange={this.handleChangeName} />
+            </div>
+          </div>
+          <br></br>
+          <div className="form-group">
+            <label className="control-label col-sm-2" htmlFor="pwd" >Password:</label>
+            <div className="col-sm-10">
+             <input style={{width: '50%'}} type="password" className="form-control" id="pwd" placeholder="Enter password" name="pwd" value={this.state.password} onChange={this.handleChangePassword} />
+            </div>
+          </div>
+          <div className="form-group">        
+            <div className="col-sm-offset-2 col-sm-10">
+              <button type="submit" className="btn btn-default">Submit</button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }

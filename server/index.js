@@ -18,8 +18,7 @@ app.post('/login',(req,res)=>{
     var givenPassword = req.body.password;
     for(var i in dataBase){
       if((dataBase[i].username == givenUserName) && (dataBase[i].password == givenPassword)){
-        console.log("in if redirect");
-        //req.session.user_id = users[i].id;
+        
         var token = jwt.sign({user: givenUserName,id: dataBase[i].id}, 'secret', {
             expiresIn: 60 * 60 
           });
@@ -34,7 +33,7 @@ app.post('/login',(req,res)=>{
           return;
         }
     }
-    console.log("unsuccessful");
+    
     res.json({ success: false, message: 'Authentication failed. User not found.' });
     return;
 })
